@@ -14,7 +14,7 @@ def add(numerolista):
 def subb(numero, numerolista):
     yhteensa = numero
     for n in numerolista:
-        yhteensa -= n
+        yhteensa -= n            
     return yhteensa
 
 # Määritellään tyyppitarkistus: jos syöte ei ole kokonaisluku, valitetaan käyttäjälle. Muussa tapauksessa lisätään se listaan kokonaislukuna.    
@@ -45,16 +45,24 @@ while True:
     while valinta not in ["plus", "miinus"]:
         print("Eikun sun pitää valita.")
         valinta = input()
-        
+    
+    # Pluslaskin    
     if valinta == "plus":
         
         print("\nSyötä numeroita. Kun kyllästyt, kirjoita 'eh' lopettaaksesi.")
         numeroluettelo(None)
     
         print("Yhteensä ne tekee ", add(numerot), "\n")
-        
+    
+    # Miinuslaskin    
     if valinta == "miinus":
-        ensiluku = int(input("\nAnna ensin jokin numero:  "))
+        while True:
+            try:
+                ensiluku = int(input("\nAnna ensin jokin numero:  "))
+                break
+            except ValueError:
+                print("Eikun numero!")
+        
         print("\nNyt voit syöttää muita numeroita, jotka miinustan tuosta ensimmäisestä. Sano 'eh' kun kyllästyt.")
         numeroluettelo(None)
         print("Kaikkien vähennysten jälkeen jäljelle jää ", subb(ensiluku, numerot), "\n")
