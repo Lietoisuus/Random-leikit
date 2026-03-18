@@ -13,15 +13,35 @@ def voitit():
     global uudestaan
     global arvauslaskuri
     global numero
-    print("Onneksi olkoon, oikein arvattu! Voitit pelin ", arvauslaskuri, " arvauksella!")
+    print("Onneksi olkoon, oikein arvattu! Voitit pelin ", arvauslaskuri, " arvauksella!\n")
+    with open("tulokset.txt", "a") as f:
+        f.write("\n" + str(arvauslaskuri) + " " + input("Jätä alle nimesi, niin tallennan sen tulostaulukkoon: "))
     arvauslaskuri = 0
     numero = randint(-100, 100)
     
+    katso = input("\nJos haluat nähdä sijoituksesi, sano 'saisinko nähdä tulostaulukon, kiitos!': ")
+    if katso == "saisinko nähdä tulostaulukon, kiitos!":
+        tulokset()
     
-    uudestaan = input("	\nHaluatko pelata uudestaan? Sano 'nääh' tai 'joo!'")
+    uudestaan = input("	\nHaluatko pelata uudestaan? Sano 'nääh' tai 'joo!': ")
     while uudestaan not in ["nääh", "joo!"]:
         print("...valitse nyt vaan ei se oo niin vaikeeta.\n")
         uudestaan = input()
+        
+def tulokset():
+    print("Tulostaulukko:\n")
+    with open("tulokset.txt") as f:
+        rivit = f.readlines()
+        tulokset = []
+
+        for rivi in rivit:
+            osat = rivi.strip().split(maxsplit=1)
+            pisteet = int(osat[0])
+            nimi = osat[1]
+            tulokset.append((pisteet, nimi))
+            tulokset.sort()
+        for pisteet, nimi in tulokset:
+            print(pisteet, nimi)
     
 # Numeronarvauksen tarkistus ja epäonnistumisesta vittuilu   
 def arvataan_numero():
